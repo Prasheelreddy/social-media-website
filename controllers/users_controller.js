@@ -1,14 +1,21 @@
 const User= require('../models/user');
 
 module.exports.profile=(req,res)=>{
+    
     return res.render('user_profile');
 };
 
 module.exports.signup=(req,res)=>{
+    if(req.isAuthenticated()){
+       return res.redirect('/users/profile');
+    }
     res.render('user_sign_up');
 }
 
 module.exports.signin=(req,res)=>{
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+     }
     res.render('user_sign_in');
 }
 
@@ -30,9 +37,11 @@ module.exports.create=(req,res)=>{
         }else{
             return res.redirect('back');
         }
-    })
+    });
 }
 
 module.exports.createSession=(req,res)=>{
     //todo
+    console.log('create session');
+    return res.redirect('/');
 }

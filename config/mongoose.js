@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-mongoose.connect('mongodb://localhost/socialmedia_development');
+mongoose.connect('mongodb://localhost/socialmedia_development',{useNewUrlParser:true});
 
 const db=mongoose.connection;
 

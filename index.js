@@ -1,15 +1,27 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
+//const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
+// var bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 // used for session cookie
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const passportJWT = require('./config/passport-jwt-strategy');
+const passportGoogle=require('./config/passport-google-oauth2-strategy');
 const MongoStore=require('connect-mongo')(session);
 const sassMiddleware=require('node-sass-middleware');
+const flash=require('connect-flash');
+const customMware=require('./config/middleware');
+
+ //chat server
+ const chatServer=require('http').Server(app);
+ const chatSockets=require('./config/chat_sockets').chatSockets(chatServer);
+ chatServer.listen(5000);
+ console.log('chat server is listening on port 5000');
+ 
 
 app.use(sassMiddleware({
     src:'./assets/scss',
@@ -21,8 +33,9 @@ app.use(sassMiddleware({
 }));
 
 app.use(express.urlencoded());
+app.use(express.json()); 
 
-app.use(cookieParser());
+//app.use(cookieParser());
 
 app.use(express.static('./assets'));
 
@@ -41,7 +54,7 @@ app.set('views', './views');
 
 app.use(session({
     name: 'codeial',
-    // TODO change the secret before deployment in production mode
+
     secret: 'blahsomething',
     saveUninitialized: false,
     resave: false,
@@ -61,8 +74,14 @@ app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
 
+app.use(flash());
+app.use(customMware.setFlash);
+
 // use express router
 app.use('/', require('./routes'));
+
+//upload path
+app.use('/uploads',express.static(__dirname+'/uploads'));
 
 
 app.listen(port, function(err){

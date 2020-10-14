@@ -1,0 +1,26 @@
+<div class="card border-primary mb-3" id='comment-<%=comment._id%>'>
+    <div class="card-body">
+        <h4 class="card-title">
+            <%=comment.user.name%>
+            <%if (locals.user && locals.user.id==comment.user.id){%>
+            <a class="btn btn-danger" id="comment-delete" href="/comments/destroy/<%=comment.id %>" role="button">delete</a>
+            <%}%>
+
+        </h4>
+        <p class="card-text"><%=comment.content%></p>
+    </div>
+
+
+    <small>
+        <% if (locals.user){ %>
+            <a class="toggle-like-button" data-likes="<%= comment.likes.length %>" href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
+                    <%= comment.likes.length %> Likes
+            </a>
+        <% }else{ %>
+            <%= comment.likes.length %> Likes
+        <% } %>
+    </small>
+
+
+    
+</div>

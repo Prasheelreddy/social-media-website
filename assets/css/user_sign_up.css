@@ -1,0 +1,34 @@
+body {
+  background: #333;
+  color: #fff;
+}
+
+#home-section {
+    background: url(../images/home.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 715px;
+  }
+  
+  #home-section .dark-overlay {
+    
+    min-height: 715px;
+    background: rgba(0, 0, 0, 0.7);
+  }
+  
+  #home-section .home-inner {
+    padding-top: 100px;
+  }
+  
+  #home-section .card-form {
+    opacity: 0.8;
+  }
+  
+  #home-section .fas,
+  #create-section .fas {
+    color: #008ed6;
+    background: #fff;
+    padding: 5px;
+    border-radius: 5px;
+  }

@@ -1,22 +1,83 @@
+<link rel="stylesheet" href="/css/header.css">
 <header>
-    Page Header
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" id="main-nav">
+        <div class="container">
+          <a href="index.html" class="navbar-brand">SOCIAL<b>Chat</b></a>
+          <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a href="/" class="nav-link">Home</a>
+              </li>
+              <%if (locals.user) {%>
+                <li class="nav-item">
+                    <a href="/users/profile/<%=user.id%>" class="nav-link"> <%= user.name%></a>
+                </li>
+                <li class="nav-item">
+                    <a href="/users/sign-out" class="nav-link">Sign Out</a>
+                </li>
+            <%}else{%>
+                <li class="nav-item">
+                    <a href="/users/sign-in"  class="nav-link" data-toggle="modal" data-target="#LoginModal">Sign In</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/users/sign-up" class="nav-link">Sign Up</a>
+                </li>
 
-    <ul>
-        <%if (locals.user) {%>
-            <li>
-                <a href="/users/profile"> <%= user.name%></a>
-            </li>
-            <li>
-                <a href="/users/sign-out">Sign Out</a>
-            </li>
-        <%}else{%>
-            <li>
-                <a href="/users/sign-in">Sign In</a>
-            </li>
-            <li>
-                <a href="/users/sign-up">Sign Up</a>
-            </li>
-        <% }%>
-    </ul>
+                  
+                  <!-- Modal -->
+                  <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog text-dark">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title text-dark">Login</h5>
+                            <button class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="/users/create-session" method="POST">
+                                
+                                <div class="form-group">
+                                    <label for="email">Email address</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <i class="far fa-envelope input-group-text"></i>
+                                        </div>
+                                        <input class="form-control" name="email" type="email" id="email" placeholder="Enter email">
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend input-group-text">
+                                            <i class="fas fa-lock"></i>
+                                        </div>
+                                        <input class="form-control" name="password" type="password" id="password" placeholder="Password" >
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-primary btn-block" value="SIGNIN">
+                                <p class="text-center m-0">OR</p>
+                                <a href="/users/auth/google" class="btn btn-primary btn-block">SIGNIN with Google</a>
+
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+            <% }%>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+   
 
 </header>

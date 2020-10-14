@@ -8,8 +8,8 @@ const { access } = require('fs');
 const { profile } = require('console');
 
 passport.use(new googleStrategy({
-        clientID:"697622625526-4v827lpu1qt9ofjj4gftl6h7tsihvkog.apps.googleusercontent.com",
-        clientSecret:"RPCN5wcCHKbcCdlBBxQOEz6m",
+        clientID:"",
+        clientSecret:"",
         callbackURL:"http://localhost:8000/users/auth/google/callback",
     },
     (accessToken,refreshToken,profile,done)=>{
